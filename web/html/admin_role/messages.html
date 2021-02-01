@@ -1,0 +1,126 @@
+<style>
+::-webkit-scrollbar {
+    display: none;
+}
+.a{width: 100%;  height: 100%;  overflow: auto;}
+body{overflow-y:scroll;}
+
+.card-wrapper {
+  display: inline-block;
+  perspective: 1000px;
+}
+.card-wrapper .card {
+  position: relative;
+  cursor: pointer;
+  transition-duration: 0.6s;
+  transition-timing-function: ease-in-out;
+  transform-style: preserve-3d;
+}
+.card-wrapper .card .front,
+.card-wrapper .card .back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform: rotateX(0deg);
+}
+.card-wrapper .card .front {
+  z-index: 2;
+}
+.card-wrapper .card .back,
+.card-wrapper.flip-right .card .back {
+  transform: rotateY(180deg);
+}
+.card-wrapper:hover .card,
+.card-wrapper.flip-right:hover .card {
+  transform: rotateY(180deg);
+}
+/* DEMO */
+.back-text{
+overflow-y:scroll;
+ overflow-wrap: break-word;
+ width: 380px;
+  height: 270px;
+}
+
+.card-wrapper,
+.card {
+  width: 400px;
+  height: 300px;
+  margin: 10px;
+}
+.card .front {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #FC545E;
+  border-radius: 4px;
+}
+
+.card .back {
+  
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #FC545E;
+  border-radius: 4px;
+}
+.card .front {
+  color: white;
+  background-image:url('/Student_Portal/graphics/dropbox_bg1.jpg');
+  font-weight: 700;
+  font-size: 1rem;
+}
+.card .back {
+  font-size: 1rem;
+  color: black;
+  background-image:url('/Student_Portal/graphics/dropboxbg2.jpg');
+}
+.fa-trash:hover{
+color:red;
+}
+.fa-paper-plane:hover{
+color:blue;
+}
+</style>
+<div  id="regid" data-ng-controller="RegistrationController" class="a container-fluid">
+<br><br>
+<div class="row text-center">
+<div class="col-lg-4 mb-5 col-sm-12"  data-ng-repeat="feedback in feedbacks">
+
+<div class="card-wrapper flip-right">
+
+  <div class="card">
+    <div class="front">
+     Hello! , this is "{{feedback.name}}" of bearing e-mail id "{{feedback.email}}". <br>(to view my feedback hover on my tab)
+    </div>
+    
+    <div class="back">
+     <a data-ng-click="sendReply(feedback);"  style="position:absolute;right:30px;top:5px;">
+     <i class="fa  fa-paper-plane fa-lg "></i>
+     </a>
+     <a data-ng-click="deleteFeedback(feedback);"  style="position:absolute;right:5px;top:5px;">
+     <i class="fa  fa-trash fa-lg "></i>
+     </a>
+     <div style="position:absolute;top:20px;" class="back-text">
+     <h3><u>Feedback</u> :</h3> <br/>{{feedback.feedback}}. <br/><br/>
+      <h3><u>Reply</u> :</h3> <br/> {{feedback.reply}}
+     </div>
+    </div>
+    
+  </div>
+</div>
+</div>
+</div>
+</div>
+<script>
+	
+		jQuery(document).ready(function() {
+			var currentPage='d';
+			localStorage.setItem("currentPage",currentPage);
+			angular.bootstrap(jQuery("#regid"), [ 'RegistrationModule' ]);
+			
+		});
+		
+</script>

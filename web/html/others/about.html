@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<style>
+.a::-webkit-scrollbar { display: none; }
+.a{width: 100%;  height: 100%;  overflow: auto;}
+.b{background-color:darkgray;color:black}
+.c{background-color:lightgray;color:black}
+</style>
+</head>
+<body>
+    <div class="container-fluid a">
+        <div class="row p-3 mb-5 b">
+            <div class="col-xl-12">
+                <div class="text-center">
+                    <br>
+                    <h1>About Us</h1>
+                    <p>A.A.N.M & V.V.R.S.R's Student portal</p>
+                    <p>This site is used by students to get their marks and attendance</p>
+                    <p>This site is organized by 4 types of People</p>
+                    <marquee class="c" behavior="alternate">Students can view their marks as well as their attendance on "Student Portal" tab on main menu.</marquee>
+                </div>
+            </div>
+        </div>
+		<div class="row">
+        <div class="col-xl-1 "></div>
+        <div class="col-xl-4 mb-5  p-2 c">
+            <div class="text-center">
+                <img src="/Student_Portal/graphics/aboutimg1.png" height="250px" width="250px" />
+            </div>
+            <div class=" text-center ">
+                <h2>Administrator</h2>
+                <p class="title ">Technical Head of College</p>
+                <p>Administrator is Level-1 Organizer for this site.</p>
+                <p>Administrator is responsible for giving logins to remaining organizers as well as removing them also.</p>
+                <p>Here administrator role is crucial because he maintains and manages the whole site.</p>
+                <p>The main functionality of the administrator is to register the principal,HOD's and faculty.</p>
+            </div>
+        </div>
+        <div class="col-xl-2"></div>
+        <div class="col-xl-4 mb-5  p-2 c">
+            <div class="text-center">
+                <img src="/Student_Portal/graphics/aboutimg2.png" height="250px" width="250px" />
+            </div>
+            <div class=" text-center ">
+                <h2>Principal</h2>
+                <p class="title ">Head of the College</p>
+                <p>Principal is Level-2 Organizer for this site.</p>
+                <p>Principal is Limited for viewing the next-level organizers as well as their attendance also.</p>
+                <p>Principal can also view student's marks as well as their attendance also.</p>
+                <p>Principal can able to promote the students from one semester to another semester.</p>
+            </div>
+        </div>
+        <div class="col-xl-1 "></div>
+		</div>
+		<div class="row">
+        <div class="col-xl-1 "></div>
+        <div class="col-xl-4 mb-5  p-2 c">
+            <div class="text-center">
+                <img src="/Student_Portal/graphics/aboutimg3.png" height="250px" width="250px" />
+            </div>
+            <div class=" text-center ">
+                <h2>HOD</h2>
+                <p class="title ">Head of the Department</p>
+                <p>HOD is Level-3 Organizer for this site.</p>
+                <p>HOD can able to view their respective branch's faculty list.</p>
+                <p>HOD can view their respective student's marks and attendance.</p>
+                <p>HOD will organize the whole branch's details.</p>
+                <p>HOD is responsible for taking the attendance of their faculty.</p>
+            </div>
+        </div>
+        <div class="col-xl-2 "></div>
+        <div class="col-xl-4 mb-5  p-2 c">
+            <div class="text-center">
+                <img src="/Student_Portal/graphics/aboutimg4.png" height="250px" width="250px" />
+            </div>
+            <div class=" text-center ">
+                <h2>Faculty</h2>
+                <p class="title ">He/She manages the class</p>
+                <p>HOD is Level-4 Organizer for this site.</p>
+                <p>Here faculty plays a crucial because student's data is entered by them.</p>
+                <p>Faculty enters student's data based on their respective pin,semester and subject.</p>
+                <p>Faculty have permission to organize the student's data itself.</p>
+                <p>The data entered by faculty can be viewed by students in the "student portal" tab on main menu.</p>
+            </div>
+        </div>
+        <div class="col-xl-1 "></div>
+		</div>
+    </div>
+<script type="text/javascript">
+		jQuery(document).ready(function() {
+			var currentPage='b';
+			localStorage.setItem("currentPage",currentPage);
+		});
+
+</script>
+</body>
+
+</html>

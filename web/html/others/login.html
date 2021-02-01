@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+
+/* Center the image and position the close button */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}
+
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float:left;
+  padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+
+
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+.toggle-password{
+  position: absolute;
+  cursor: pointer;
+  left: 92%;
+  top: 77.5%;
+}
+</style>
+</head>
+<body>
+<div  id="regid" data-ng-controller="RegistrationController">
+
+
+<div id="id01">
+  
+  <form class="modal-content animate" style="border-radius:50px; background-image:url('/Student_Portal/graphics/Bgi5.jpg')">
+    <div class="imgcontainer">
+      <img src="/Student_Portal/graphics/loginimg.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <h4><b>Username :</b></h4>
+      <input type="text" placeholder="Enter Username" data-ng-model="data.object.username" style="border-radius:50px;" required>
+
+      <h4><b>Password :</b></h4>
+      <input type="password" name="pwd" id="input-pwd" placeholder="Enter Password" data-ng-model="data.object.password" style="border-radius:50px;" required>
+      <span toggle="#input-pwd" class="fa fa-fw fa-eye field-icon toggle-password d-none d-xl-block"></span>
+      <span class="psw">Forgot <a href="#" style="color:white;" onclick="Nav.showForgotPasswordPage();">password?</a></span>
+      <button type="submit" style="border-radius:50px;" data-ng-click="login(data.object);">Login</button>
+      
+    </div>
+  </form>
+</div>
+
+		
+
+ </div>
+ 
+	<script>
+		jQuery(document).ready(function() {
+			var currentPage='e';
+			localStorage.setItem("currentPage",currentPage);
+			angular.bootstrap(jQuery("#regid"), [ 'RegistrationModule' ]);
+           
+		});
+		
+		$('.toggle-password').on('click', function() {
+			  $(this).toggleClass('fa-eye fa-eye-slash');
+			  let input = $($(this).attr('toggle'));
+			  if (input.attr('type') == 'password') {
+			    input.attr('type', 'text');
+			  }
+			  else {
+			    input.attr('type', 'password');
+			  }
+			});
+
+	</script>
+	
+</body>
+</html>

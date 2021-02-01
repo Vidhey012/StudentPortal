@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<style>
+body::-webkit-scrollbar { display: none; }
+.a{width: 100%;  height: 100%;  overflow: auto;}
+body{overflow-y:scroll;}
+td{ background-color: Chartreuse; color:black;}
+td:hover{ background-color: ForestGreen; color:white;}
+th{ background-color: ForestGreen; color:white;}
+th:hover{ background-color: Chartreuse; color:black;}
+</style>
+</head>
+<body>
+
+<div  id="regid" data-ng-controller="RegistrationController">
+ 
+		
+		<div class="container-fluid tab-pane a">
+		<br/><br/><br/><br/>
+	    <div class="row  text-center">
+		<div class="col-1"></div>
+		<div class="col-10">
+			<form><table class="table table-bordered mb-5" style="text-align:center;">
+				<tr>
+					<th colspan="3">Student id</th>
+					<th>Semester</th>
+					<th>Subject</th>
+					<th>Mid 1</th>	
+					<th>Mid 2</th>	
+					<th>Mid 3</th>		
+					<th>Quick Actions</th>
+				</tr>
+				<tr>
+					<td style="width:150px;"> 
+					<input type="text" data-ng-model="data.object.stu_pin2" style="display:none;">
+                     <select class="form-control" data-ng-model="data.object.stu_pin1" data-ng-change="getStu_Pin3(data.object);" required>			
+					   <option data-ng-repeat="x in studentdetails1" data-ng-value="{{x.stu_pin1}}">{{x.stu_pin1}}</option>
+			         </select>
+                    </td>
+					<td style="width:50px;"> <input type="text"  class="form-control" id="bc" disabled></td>
+					<td style="width:100px;"> 
+                     <select class="form-control" data-ng-model="data.object.stu_pin3" required>			
+					   <option data-ng-repeat="x in stupin3s" data-ng-value="{{x.stu_pin3}}">{{x.stu_pin3}}</option>
+			         </select>
+                    </td>
+					<td>
+					    <select class="form-control" data-ng-model="data.object.sem" data-ng-change="getSubjects(data.object);" required>
+						<option data-ng-repeat="semester in semesters" value="{{semester.sem}}">{{semester.sem}}</option>
+					    </select>
+               	    </td>
+               	    <td>
+               	        <select class="form-control" data-ng-model="data.object.subject" required>
+						<option data-ng-repeat="sub in subjects" value="{{sub.subject}}">{{sub.subject}}</option>
+					    </select>
+               	    </td>
+               	    <td>  <input type="number"  class="form-control"  data-ng-model="data.object.mid1" style="width:75%;"required>  </td>
+               	    <td>  <input type="number"  class="form-control"  data-ng-model="data.object.mid2" style="width:75%;"required>  </td>
+               	    <td>  <input type="number"  class="form-control"  data-ng-model="data.object.mid3" style="width:75%;"required  data-ng-disabled="data.object.sem!='1'">  </td>
+					<td style="display:none;"><input type="text"  class="form-control" data-ng-model="data.object.facultyid"></td>
+					<td style="display:none;"><input type="text"  class="form-control" data-ng-model="data.object.status"></td>
+					<td>
+					<button type="button" class="btn btn-primary btn-md" data-ng-click="insertstudentMarks(data.object);">
+					<span class="glyphicon glyphicon-pencil "> ADD </span>
+				     </button>
+				    </td>
+				</tr>
+				
+				<tr data-ng-repeat="stumarks in studentMarks">
+					<td> 
+                     <select class="form-control" data-ng-model="stumarks.stu_pin1" data-ng-value="stumarks.stu_pin1" required disabled>			
+					   <option data-ng-repeat="x in studentdetails1" data-ng-value="{{x.stu_pin1}}">{{x.stu_pin1}}</option>
+			         </select>
+                    </td>
+					<td> <input type="text"  class="form-control"  data-ng-model="stumarks.stu_pin2" data-ng-vaue="stumarks.stu_pin2" disabled></td>
+					<td> 
+                     <select class="form-control" data-ng-model="stumarks.stu_pin3" data-ng-value="stumarks.stu_pin3" required disabled>			
+					   <option data-ng-repeat="y in studentdetails2" data-ng-value="{{y.stu_pin3}}">{{y.stu_pin3}}</option>
+			         </select>
+                    </td>
+					<td>
+					   <input type="text"  class="form-control"  data-ng-model="stumarks.sem" data-ng-vaue="stumarks.sem" disabled>
+               	    </td>
+               	    <td>
+               	     <input type="text"  class="form-control"  data-ng-model="stumarks.subject" data-ng-vaue="stumarks.subject" disabled>
+               	    </td>
+               	    <td>  <input type="number"  class="form-control"  data-ng-model="stumarks.mid1" data-ng-vaue="stumarks.mid1" style="width:75%;" required>  </td>
+               	    <td>  <input type="number"  class="form-control"  data-ng-model="stumarks.mid2" data-ng-vaue="stumarks.mid2" style="width:75%;" required >  </td>
+               	    <td>  <input type="number"  class="form-control"  data-ng-model="stumarks.mid3" data-ng-vaue="stumarks.mid3" style="width:75%;" required data-ng-disabled="stumarks.sem!='1'">  </td>
+					<td style="display:none;"><input type="text"  class="form-control" data-ng-model="stumarks.facultyid"></td>
+					<td>
+					<button type="button" data-ng-click="updatestudentMarks(stumarks);" class="btn btn-success btn-md">
+							<span class="glyphicon glyphicon-pencil">Modify</span>
+					</button>
+					<button type="button"  data-ng-click="removestudentMarks(stumarks);" class="btn btn-danger btn-md">
+							<span class="glyphicon glyphicon-pencil">Delete</span>
+					</button>
+				    </td>
+				</tr>
+				</table></form>
+			</div>
+			<div class="col-1"></div>
+			</div>
+		</div>
+		
+
+		
+ </div>
+
+<script type="text/javascript">
+		jQuery(document).ready(function() {
+			$('[id*=bc]').val(localStorage.getItem("branchcode"));
+			var currentPage='c';
+			localStorage.setItem("currentPage",currentPage);
+			angular.bootstrap(jQuery("#regid"), [ 'RegistrationModule' ]);
+			
+		});
+
+</script>
+</body>
+</html>

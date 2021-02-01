@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<style>
+body::-webkit-scrollbar { display: none; }
+.a{width: 100%;  height: 100%;  overflow: auto;}
+.card-img-top{
+height:350px;
+}
+</style>
+</head>
+<body>
+<div class="a container-fluid">
+<br><br><br>
+<div class="row">
+<div class="col-lg-1 mb-5 col-0   text-center"></div>
+
+<div class="col-lg-3 mb-5 col-12   text-center">
+<div class="card ml-5 text-white bg-warning" style="width: 25rem;">
+  <img class="card-img-top" src="/Student_Portal/graphics/addmember1.png" alt="Card image cap">
+  <div class="card-body text-center">
+    <h5 class="card-title">Organizer</h5>
+    <p class="card-text">In order to add or modify or remove organizers (Principal,HOD..) click 'add organizer' option.</p>
+    <a href="#" class="btn btn-primary" onclick="Nav.showAddMemberPage();">Add Organizer</a>
+  </div>
+</div>
+</div>
+
+<div class="col-lg-3 mb-5 col-12   text-center">
+<div class="card ml-5 mr-5 text-white bg-secondary" style="width: 25rem;">
+  <img class="card-img-top" src="/Student_Portal/graphics/addbranch.png" alt="Card image cap">
+  <div class="card-body text-center">
+    <h5 class="card-title">Course</h5>
+    <p class="card-text">In order to add or modify or remove courses (branches) click 'add course' option.</p>
+    <a href="#" class="btn btn-primary" onclick="Nav.showAddBranchPage();">Add Course</a>
+  </div>
+</div>
+</div>
+
+<div class="col-lg-3 mb-5 col-12   text-center">
+<div class="card ml-5 mr-5 text-white bg-success" style="width: 25rem;">
+  <img class="card-img-top" src="/Student_Portal/graphics/addsemester1.png" alt="Card image cap">
+  <div class="card-body text-center">
+    <h5 class="card-title">Semester</h5>
+    <p class="card-text">In order to add or modify or remove semesters,click 'add semester' option.</p>
+    <a href="#" class="btn btn-primary" onclick="Nav.showAddSemPage();">Add Semester</a>
+  </div>
+</div>
+
+</div>
+<div class="col-lg-1 mb-5 col-0   text-center"></div>
+</div>
+<br><br><br>
+<div class="row">
+<div class="col-lg-1 mb-5 col-0   text-center"></div>
+
+<div class="col-lg-3 mb-5 col-12   text-center">
+<div class="card ml-5 text-white bg-danger" style="width: 25rem;">
+  <img class="card-img-top" src="/Student_Portal/graphics/addsubject.png" alt="Card image cap">
+  <div class="card-body text-center">
+    <h5 class="card-title">Subject</h5>
+    <p class="card-text">In order to add or modify or remove subjects,click 'add subject' option.</p>
+    <a href="#" class="btn btn-primary" onclick="Nav.showAddSubjectPage();">Add Subject</a>
+  </div>
+</div>
+</div>
+
+<div class="col-lg-3 mb-5 col-12   text-center">
+<div class="card ml-5 mr-5   bg-light" style="width: 25rem;">
+  <img class="card-img-top" src="/Student_Portal/graphics/addqualification1.png" alt="Card image cap">
+  <div class="card-body text-center">
+    <h5 class="card-title">Qualification</h5>
+    <p class="card-text">In order to add or modify or remove qualifications (m-tech,b-tech..) click 'add qualification' option.</p>
+    <a href="#" class="btn btn-primary" onclick="Nav.showAddQualificationPage();">Add Qualification</a>
+  </div>
+</div>
+</div>
+
+<div class="col-lg-3 mb-5 col-12   text-center">
+<div class="card ml-5 mr-5  text-white bg-primary" style="width: 25rem;">
+  <img class="card-img-top" src="/Student_Portal/graphics/addfaq.png" alt="Card image cap">
+  <div class="card-body text-center">
+     <h5 class="card-title">FAQ</h5>
+    <p class="card-text">In order to add or modify or remove frequently asking questions by users, click 'add faq' option.</p>
+    <a href="#" class="btn btn-warning" onclick="Nav.showAddFaqPage();">Add FAQ</a>
+  </div>
+</div>
+</div>
+
+<div class="col-lg-1 mb-5 col-0   text-center"></div>
+</div>
+<br><br><br>
+<div class="row">
+<div class="col-lg-1 mb-5 col-0  text-center"></div>
+
+<div class="col-lg-3 mb-5 col-12   text-center">
+<div class="card ml-5" style="width: 25rem; background-color:pink;">
+  <img class="card-img-top" src="/Student_Portal/graphics/addcontact.png" alt="Card image cap">
+  <div class="card-body text-center">
+    <h5 class="card-title">Contact</h5>
+    <p class="card-text">In order to add or modify or remove contact details,click 'add contact' option.</p>
+    <a href="#" class="btn btn-primary" onclick="Nav.showAddContactPage();">Add Contact</a>
+  </div>
+</div>
+</div>
+
+<div class="col-lg-3 mb-5 col-12   text-center">
+<div class="card ml-5 mr-5" style="background-color:#9bcfe5; width: 25rem;">
+  <img class="card-img-top" src="/Student_Portal/graphics/addholiday.jpg" alt="Card image cap">
+  <div class="card-body text-center">
+     <h5 class="card-title">Holidays</h5>
+    <p class="card-text">In order to add holidays list,<br> click 'add holidays' option.</p>
+    <a href="#" class="btn btn-primary" onclick="Nav.showAddHolidayPage();">Add Holidays</a>
+  </div>
+</div>
+</div>
+<div class="col-lg-3 mb-5 col-0   text-center"></div>
+
+<div class="col-lg-1 mb-5 col-0   text-center"></div>
+</div>
+</div>
+</body>
+<script>
+		jQuery(document).ready(function() {
+			
+			var currentPage='j';
+			localStorage.setItem("currentPage",currentPage);
+			
+			
+		});
+		
+	</script>
+</html>

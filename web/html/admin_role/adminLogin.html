@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+.content {
+  height: 100%; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+}
+
+main {
+  height: 100%;
+  width: 100%;
+}
+
+aside {
+  background-color:DodgerBlue;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 20%;
+  z-index: 1;
+}
+
+section {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+label {
+  display: inline-block;
+  padding: 7px 10px;
+  background-color: transparent;
+  cursor: pointer;
+  margin: 10px;
+  z-index: 3;
+  position: fixed;
+}
+
+.bar {
+  display: block;
+  background-color: black;
+  width: 30px;
+  height: 3px;
+  border-radius: 5px;
+  margin: 5px auto;
+  transition: background-color .5s ease-in, transform .5s ease-in, width .5s ease-in;
+}
+
+.content {
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  right: 0;
+  left: 0;
+  background-image:url('/Student_Portal/graphics/Bgi5.jpg');
+  z-index: 2;
+  transition: transform .5s ease-in-out;
+}
+
+h1 {
+  margin: 0;
+  position: relative;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: 40px;
+}
+
+.asideList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 100px;
+  text-align: center;
+  border-top: 2px solid rgba(255, 255, 255, .7);
+}
+
+.asideAnchor {
+  border-bottom: 2px solid rgba(255, 255, 255, .7);
+  padding: 20px 0;
+  display: block;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 500;
+  position: relative;
+  transition: color .3s .15s ease-in;
+}
+
+.asideAnchor::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  background-color: DeepSkyBlue;
+  width: 0;
+  transition: width .3s ease-in;
+  z-index: -1;
+}
+
+.asideAnchor:hover {
+  color: black;
+}
+
+.asideAnchor:hover::after {
+  width: 100%;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"]:checked ~ .content {
+  transform: translateX(20%);
+}
+
+input[type="checkbox"]:checked ~ label .bar {
+  background-color: #fff;
+}
+
+input[type="checkbox"]:checked ~ label .top {
+  -webkit-transform: translateY(0px) rotateZ(45deg);
+  -moz-transform: translateY(0px) rotateZ(45deg);
+  -ms-transform: translateY(0px) rotateZ(45deg);
+  -o-transform: translateY(0px) rotateZ(45deg);
+  transform: translateY(0px) rotateZ(45deg);
+}
+
+input[type="checkbox"]:checked ~ label .bottom {
+  -webkit-transform: translateY(-15px) rotateZ(-45deg);
+  -moz-transform: translateY(-15px) rotateZ(-45deg);
+  -ms-transform: translateY(-15px) rotateZ(-45deg);
+  -o-transform: translateY(-15px) rotateZ(-45deg);
+  transform: translateY(-15px) rotateZ(-45deg);
+}
+
+input[type="checkbox"]:checked ~ label .middle {
+  width: 0;
+}
+
+.middle {
+  margin: 0 auto;
+}
+
+.ua {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  color: #0799d3;
+  font-size: 2em;
+  z-index: 2;
+}
+
+</style>
+</head>
+<body>
+
+<main>
+  <aside>
+    <ul class="asideList">
+      <li><a href="#" onclick="Nav.showAdminHomePage();" class="asideAnchor fa fa-home"> Home</a></li>
+      <li><a href="#" onclick="Nav.showAdminProfilePage();" class="asideAnchor fa fa-address-book"> Profile</a></li> 
+      <li><a href="#" onclick="Nav.showChangePasswordPage();" class="asideAnchor fa fa-lock "> Change Password</a></li>
+      <li><a href="#" onclick="Nav.showAddPage();" class="asideAnchor fa fa-plus-square"> Add Criteria</a></li>
+      <li><a href="#" onclick="Nav.showMessagesPage();" class="asideAnchor fa  fa-bullhorn "> Reviews</a></li>
+      <li><a href="#" onclick="Nav.showLogoutPage();" class="asideAnchor fa fa-mail-reply"> Logout</a></li>
+    </ul>
+  </aside>
+  <section>
+
+  <input type="checkbox" id="myInput">
+    <label for="myInput" >
+      <span class="bar top"></span>
+      <span class="bar middle"></span>
+      <span class="bar bottom"></span>
+    </label>
+ 
+  <div class="content" id="actionSpace">  </div>
+  </section>
+</main>
+<script type="text/javascript">
+		jQuery(document).ready(function() {
+			
+			var currentPage=localStorage.getItem("currentPage");
+			if(currentPage=='a' || currentPage==null){
+				Nav.showAdminHomePage();					
+				}
+			else if(currentPage=='b'){
+				Nav.showAdminProfilePage();					
+			}
+			else if(currentPage=='c'){
+				Nav.showAddMemberPage();					
+			}
+			else if(currentPage=='d'){
+				Nav.showMessagesPage();					
+			}
+			else if(currentPage=='e'){
+				Nav.showAddSubjectPage();					
+			}
+			else if(currentPage=='f'){
+				Nav.showAddSemPage();					
+			}
+			else if(currentPage=='g'){
+				Nav.showAddBranchPage();					
+			}
+			else if(currentPage=='h'){
+				Nav.showAddQualificationPage();					
+			}
+			else if(currentPage=='i'){
+				Nav.showAddHolidayPage();					
+			}
+			else if(currentPage=='j'){
+				Nav.showAddPage();					
+			}
+			else if(currentPage=='k'){
+				Nav.showAddFaqPage();					
+			}
+			else if(currentPage=='l'){
+				Nav.showAddContactPage();					
+			}
+			else if(currentPage=='cp'){
+				Nav.showChangePasswordPage();					
+			}
+		});
+	</script>
+</body>
+</html>
+

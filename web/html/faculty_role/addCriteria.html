@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<style>
+body::-webkit-scrollbar { display: none; }
+.a{width: 100%;  height: 100%;  overflow: auto;}
+.card-img-top{
+height:400px;
+}
+</style>
+</head>
+<body>
+<div class="a container-fluid">
+<br><br><br><br><br>
+<div class="row">
+<div class="col-lg-1 mb-5 col-0   text-center"></div>
+
+<div class="col-lg-3 mb-5 col-12   text-center">
+<div class="card ml-5 text-white bg-warning" style="width: 25rem;">
+  <img class="card-img-top" src="/Student_Portal/graphics/addmember1.png" alt="Card image cap">
+  <div class="card-body text-center">
+    <h5 class="card-title">Student</h5>
+    <p class="card-text">In order to add or modify or remove student details click 'add student' option.</p>
+    <a href="#" class="btn btn-primary" onclick="Nav.showAddStudentPage();">Add Student</a>
+  </div>
+</div>
+</div>
+
+<div class="col-lg-3 mb-5 col-12   text-center">
+<div class="card ml-5 mr-5 text-white bg-secondary" style="width: 25rem;">
+  <img class="card-img-top" src="/Student_Portal/graphics/addmarks.png" alt="Card image cap">
+  <div class="card-body text-center">
+    <h5 class="card-title">Marks</h5>
+    <p class="card-text">In order to add or modify or remove student marks click 'add marks' option.</p>
+    <a href="#" class="btn btn-primary" onclick="Nav.showAddMarksPage();">Add Marks</a>
+  </div>
+</div>
+</div>
+
+<div class="col-lg-3 mb-5 col-12   text-center">
+<div class="card ml-5 mr-5 text-white bg-success" style="width: 25rem;">
+  <img class="card-img-top" src="/Student_Portal/graphics/addattendance.png" alt="Card image cap">
+  <div class="card-body text-center">
+    <h5 class="card-title">Attendance</h5>
+    <p class="card-text">In order to add or modify or remove student attendance,click 'add attendance' option.</p>
+    <a href="#" class="btn btn-primary" onclick="Nav.showAddAttendancePage();">Add Attendance</a>
+  </div>
+</div>
+</div>
+
+<div class="col-lg-1 mb-5 col-0   text-center"></div>
+</div>
+
+</div>
+</body>
+<script>
+		jQuery(document).ready(function() {
+			
+			var currentPage='f';
+			localStorage.setItem("currentPage",currentPage);
+			
+			
+		});
+		
+	</script>
+</html>
