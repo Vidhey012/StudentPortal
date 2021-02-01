@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<style>
+body::-webkit-scrollbar { display: none; }
+.a{width: 100%;  height: 100%;  overflow: auto;}
+body{overflow-y:scroll;}
+td{ background-color: Azure; color:black;}
+td:hover{ background-color: DarkSlateGrey; color:white;}
+th{ background-color: DarkSlateGrey; color:white;}
+th:hover{ background-color: Azure; color:black;}
+a:hover{color:white;}
+</style>
+</head>
+<body>
+
+ <div  id="regid" data-ng-controller="RegistrationController">
+ 
+		
+		<div class="container-fluid tab-pane a">
+		<br/><br/><br/><br/>
+	    <div class="row  text-center">
+		<div class="col-1"></div>
+		<div class="col-10">
+		<table class="table table-bordered mb-5" style="text-align:center;">
+		    <tr>
+		    <th>Designation</th>
+		    <th>Count</th>
+		    </tr>
+		    <tr>
+		    <td>Faculty</td>
+		    <td>
+		    <a type="submit" class="" data-target="#userdetails" id="user">&nbsp;&nbsp;{{userdetailsforhod.length}}&nbsp;&nbsp;</a>
+			</td>
+		    </tr>
+		     <tr>
+		    <td>Students</td>
+		    <td>
+		    <a type="submit" class="" data-target="#studentdetails" id="student">&nbsp;&nbsp;{{studentdetailsforhod.length}}&nbsp;&nbsp;</a>
+			</td>
+		    </tr>
+        </table>
+		<div  id="userdetails" style=" display:none;">
+			<table class="table table-bordered" style="text-align:center;">
+				<tr>
+					<th>User Name</th>
+					<th>Email</th>
+					<th>Qualification</th>
+					<th>Experience</th>
+					<th>Designation</th>
+					<th>Branch Code</th> 
+				</tr>
+				<tr data-ng-repeat="userdata in userdetailsforhod">
+					<td>{{userdata.username}}</td>
+					<td>{{userdata.email}}</td>
+					<td>{{userdata.qualification}}</td>
+					<td>{{userdata.experience}}</td>
+					<td>{{userdata.role}}</td>
+					<td>{{userdata.branchcode}}</td>
+				</tr>
+			</table>
+			</div>
+			<div id="studentdetails" style=" display:none;">
+			<table class="table table-bordered" style="text-align:center;" >
+				<tr>
+					<th>Student Pin</th>
+					<th>Name</th>
+					<th>Year</th>
+					<th>Email</th>
+					<th>Mobile no</th>
+				</tr>
+				<tr data-ng-repeat="student in studentdetailsforhod">
+					<td>{{student.stu_pin1}}-{{student.stu_pin2}}-{{student.stu_pin3}}</td>
+					<td>{{student.name}}</td>
+					<td>{{student.year}}</td>
+					<td>{{student.email}}</td>
+					<td>{{student.mobileno}}</td>
+				</tr>
+			</table>
+			</div>
+			</div>
+			<div class="col-1"></div>
+			</div>
+			
+			<br/><br/><br/>
+			<div class="row  text-center">
+		      <div class="col-1"></div>
+		      <div class="col-10">
+			  <table class="table table-bordered" style="text-align:center;">
+			<tr>
+			<td> <input type="text"  class="form-control" id="bc"  data-ng-disabled="true"></td>
+			<td>
+			<select class="form-control" data-ng-model="data.object.sem" data-ng-change="getSubjects(data.object);">
+			           <option value="" selected disabled>Select Semester</option>			
+					   <option data-ng-repeat="semester in semesters" value="{{semester.sem}}">{{semester.sem}}</option>
+			</select>
+			</td>
+			<td>
+			<select class="form-control" data-ng-model="data.object.subject">
+			           <option value="" selected disabled>Select Subject</option>			
+						<option data-ng-repeat="sub in subjects" value="{{sub.subject}}">{{sub.subject}}</option>
+		    </select>
+			</td>
+			<td>
+			<button type="submit" class="btn btn-primary" data-ng-click="viewIndividualStudentMarks1(data.object);" data-target="#pinternals" id="i">&nbsp;&nbsp;Internals&nbsp;&nbsp;</button>
+			</td>
+			</tr>
+			</table>
+			</div>
+			<div class="col-1"></div>
+			</div>
+
+
+
+
+        <div  id="pinternals"  style="display:none;" >
+				<div class="modal-dialog modal-lg">
+                		<div class="modal-content"  style="background-image:url('/Student_Portal/graphics/form_bg1.jpg'); color:white;">
+						<div class="modal-header">
+						<h4 class="modal-title">Marks</h4>
+						</div>
+						<div class="modal-body">
+							<div class="panel panel-success">
+								<div class="panel-body">
+								    <div class="row  text-center">
+										<div class="col-12">
+											<table class="table table-bordered" style="text-align:center;">
+												<tr>
+													<th>Student id</th>
+													<th>Semester</th>
+													<th>Subject</th>
+													<th>Mid 1</th>	
+													<th>Mid 2</th>	
+													<th>Mid 3</th>		
+											     </tr>
+												<tr data-ng-repeat="z in individualstudentmarks1">
+												<td>{{z.stu_pin1}}-{{z.stu_pin2}}-{{z.stu_pin3}}</td>
+												<td>{{z.sem}}</td>
+												<td>{{z.subject}}</td>
+												<td>{{z.mid1}}</td>
+												<td>{{z.mid2}}</td>
+												<td id="m3" data-ng-hide="z.sem!='1'">{{z.mid3}}</td>
+												<td data-ng-hide="z.sem=='1'">-</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>			
+				</div>
+			</div>
+			
+
+            
+           <div class="row  text-center">
+		      <div class="col-1"></div>
+		      <div class="col-10">
+			<table class="table table-bordered" style="text-align:center;">
+			<tr>
+			<td  data-ng-hide="true" >
+			<input type="text" data-ng-model="data.object1.stu_pin2" class="form-control" >
+			</td>
+			<td>
+			<input type="date" data-ng-model="data.object1.sdate" class="form-control" required>
+			</td>
+			<td>
+			<input type="date" data-ng-model="data.object1.edate" class="form-control" required>
+			</td>
+			<td>
+			<button type="submit" class="btn btn-primary" data-ng-click="viewIndividualStudentAttendance2(data.object1);" data-target="#pattendance" id="a">Attendance</button>
+			</td>
+			</tr>
+			</table>
+			</div>
+			<div class="col-1"></div>
+			</div>
+
+        <div  id="pattendance"  style="display:none;">
+				<div class="modal-dialog modal-lg">
+                		<div class="modal-content"  style="background-image:url('/Student_Portal/graphics/form_bg1.jpg'); color:white;">
+						<div class="modal-header">
+						<h4 class="modal-title">Attendance</h4>
+						</div>
+						<div class="modal-body">
+							<div class="panel panel-success">
+								<div class="panel-body">
+								    <div class="row  text-center">
+										<div class="col-12">
+											<table class="table table-bordered" style="text-align:center; color:white;">
+												<tr>
+													<th>Date</th>
+													<th>Student id</th>
+													<th>Attendance</th>
+												</tr>
+												<tr data-ng-repeat="v in individualstudentattendance2">
+												<td>{{v.date}}</td>
+												<td>{{v.stu_pin1}}-{{v.stu_pin2}}-{{v.stu_pin3}}</td>
+												<td>{{v.attendance}}</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>			
+				</div>
+			</div>
+			
+		</div>
+		
+
+		
+ </div>
+ 
+	<script>
+		jQuery(document).ready(function() {
+			$('[id*=bc]').val(localStorage.getItem("branchcode"));
+			var currentPage='c';
+			localStorage.setItem("currentPage",currentPage);
+			$('#a').click(function() {
+		        $('#pattendance').toggle("slide");
+		      });
+		    $('#i').click(function() {
+		        $('#pinternals').toggle("slide");
+		      });
+		    $('#user').click(function() {
+		        $('#userdetails').toggle("slide");
+		      });
+		    $('#student').click(function() {
+		        $('#studentdetails').toggle("slide");
+		      });
+			angular.bootstrap(jQuery("#regid"), [ 'RegistrationModule' ]);
+			
+		});
+		
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+
+ <!--js Plugins for sliding in homepage -->
+ <script src="/Student_Portal/plugins/homepage/js/slick.js"></script>
+ <script src="/Student_Portal/plugins/homepage/js/isotope.pkgd.min.js"></script>
+ <script src="/Student_Portal/plugins/homepage/js/main.js"></script>
+ 
+ <!--css Plugins for sliding in homepage -->
+ <link href="/Student_Portal/plugins/homepage/css/slick.css" rel="stylesheet" />
+ <link href="/Student_Portal/plugins/homepage/css/slick-theme.css" rel="stylesheet" />
+ <link href="/Student_Portal/plugins/homepage/css/main.css" rel="stylesheet" />
+ 
+<style>
+
+
+:root {
+  --mainColor: #ff9800; 
+}
+
+body {
+  align-items: center;
+  display: flex;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2em;
+  height: 100vh;
+  justify-content: center;
+}
+
+#heading {
+  color: var(--mainColor);
+  font-family: 'Times New Roman', Times, serif;
+  font-size:250%;
+  text-decoration: none;
+}
+
+#heading:hover {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--mainColor);
+}
+
+@supports not(-webkit-text-stroke: 2px red) {
+  #heading:hover {
+    text-shadow:
+      3px 3px 0 var(--mainColor),
+      -1px -1px 0 var(--mainColor),
+      1px -1px 0 var(--mainColor),
+      -1px 1px 0 var(--mainColor),
+      1px 1px 0 var(--mainColor);
+  }
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.case-study {
+    text-align: center;
+    background-image:url('/Student_Portal/graphics/Bgi5.jpg');
+  height: 100%; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#a {
+    text-align: center;
+    background-image:url('/Student_Portal/graphics/homegif.gif');
+  height: 100%; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
+
+</head>
+
+<body>
+<section class="case-study">
+            <div class="row">
+            <div class="col-xl-2"></div>
+            <div class="col-xl-8 container-fluid tab-pane active">
+            <br/>
+            <p id="heading" align="center"><u>Administrator Login</u></p>
+            </div>
+            <div class="col-xl-2"></div>
+            </div>
+            
+            <div class="container center">
+                <div class="case-study--sliders">
+                    <div class="case-study--left" id="a" style="border-radius:20%;">
+                        <div class="case-study--left__textslider" style="border-radius:20%;">
+                            <div style="border-radius:20%; background-color:yellow;">
+                                <div class="case-study--left__textslider__image"><i class="fa fa-lightbulb-o" aria-hidden="true"></i></div>
+                                <h4>About Our Site </h4>
+                                <p>This site is used by students to get their marks and attendance.<br>Faculty can also view their monthly attendance.</p>
+                            </div>
+                             <div style="border-radius:20%; background-color:aqua;">
+                                <div class="case-study--left__textslider__image"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+                                <h4>Organised way of Viewing Attendance</h4>
+                                <p>Here student can view their attendance in an organised way in student portal tab.<br>Faculty can also view their monthly attendance in their respective logins.</p>
+                            </div>
+							 <div style="border-radius:20%; background-color:Lavender;">
+                                <div class="case-study--left__textslider__image"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
+                                <h4>Organised way of Viewing Marks</h4>
+                                <p>Here student can view their attendance in an organised way in student portal tab.<br>They can view them based on their respective semesters.</p>
+                            </div>
+                             <div style="border-radius:20%; background-color:GreenYellow;">
+                                <div class="case-study--left__textslider__image"><i class="fa fa-star-half-o" aria-hidden="true"></i></div>
+                                <h4>Review's</h4>
+                                <p>Anyone accessing this site can give their review of the site in drop box section.<br>All these reviews are sent to the admin,so than he can maintain the site.</p>
+                            </div>
+                            <div style="border-radius:20%; background-color:pink;">
+                                <div class="case-study--left__textslider__image"><i class="fa fa-comments" aria-hidden="true"></i></div>
+                                <h4>Communication via Mail</h4>
+                                <p>Once a person sent his query to the admin via dropbox section,<br>the admin can give the reply to that person via mail.</p>
+                            </div>
+                        </div>
+                        <div class="case-study--left__dots"></div>
+                    </div>
+                    <div class="case-study--right">
+                        <div class="case-study--right__imageslider"  style="border-radius:20%;">
+                        
+                            
+                            <div>
+                                <img src="/Student_Portal/graphics/homeimg1.jpg" style="border-radius:20%;" alt="Network slowed while viewing image" />
+                            </div>
+                             <div>
+                                <img src="/Student_Portal/graphics/homeimg2.jpg" style="border-radius:20%;" alt="Network slowed while viewing image" />
+                            </div>
+                            <div>
+                                <img src="/Student_Portal/graphics/homeimg3.jpg" style="border-radius:20%;" alt="Network slowed while viewing image" />
+                            </div>
+                            <div>
+                                <img src="/Student_Portal/graphics/homeimg4.jpg" style="border-radius:20%;" alt="Network slowed while viewing image" />
+                            </div>
+                            <div>
+                                <img src="/Student_Portal/graphics/homeimg5.jpg" style="border-radius:20%;" alt="Network slowed while viewing image" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<script type="text/javascript">
+		jQuery(document).ready(function() {
+			var currentPage='a';
+			localStorage.setItem("currentPage",currentPage);
+		});
+
+</script>
+<div style="position:fixed; bottom:0px ; right:0px;"><span style="color:gray;" class="h6" title="This Project is developed by : &#013;Vidhey(Team Lead), &#013;Prasanna Kumar(Team member), &#013;Prem Chand(Team member), &#013;Praveen(Team member), &#013;Praveen Kumar(Team member), &#013;Tarun Chand(Team member).">VPPPPT@Team</span></div>
+</body>
+
+</html>

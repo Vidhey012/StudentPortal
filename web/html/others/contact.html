@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+.a::-webkit-scrollbar { display: none; }
+.a{width: 100%;  height: 100%;  overflow: auto;}
+</style>
+</head>
+<body>
+<br>
+    <div  id="regid" data-ng-controller="RegistrationController" class="container-fluid text-center a">
+        <div class="row">
+            <div class="col-xl-12 text-center">
+                <h1 style="font-family: 'Times New Roman', Times, serif;"><u>Keep In Touch</u></h1>
+            </div>
+        </div><br><br>
+
+        <div class="row">
+        <div class="col-xl-2"></div>
+            <div class="col-xl-8 bg-secondary text-white"><br>
+                <h3 style="font-family: 'Times New Roman', Times, serif;">Address:</h3><br>
+                <p>A.A.N.M & V.V.R.S.R Polytechnic, GUDLAVALLERU - 521356, Krishna Dist., A.P.,</p>
+                <div  data-ng-repeat="contact in contactdetails">
+                <u><strong>{{contact.detailname}}</strong></u> : {{contact.detailvalue}}<br><br>
+                </div>
+            </div>
+       <div class="col-xl-2"></div>
+        </div><br><br>
+        <div class="row">
+                    <div class="col-xl-12 text-center mb-10 ml-10 mr-10">
+                        <iframe data-ng-src="{{trustSrc(mapdetails.maplink)}}"  style="border:0; width:100%; height:500px;" aria-hidden="false" tabindex="0"></iframe>
+                    </div>
+        </div><br><br>
+      </div>
+<script>
+		jQuery(document).ready(function() {
+			var currentPage='d';
+			localStorage.setItem("currentPage",currentPage);
+			angular.bootstrap(jQuery("#regid"), [ 'RegistrationModule' ]);
+		});
+		
+</script>        
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<style>
+body::-webkit-scrollbar { display: none; }
+.a{width: 100%;  height: 100%;  overflow: auto;}
+td{ background-color: DeepSkyBlue; color:black;}
+td:hover{ background-color: DodgerBlue; color:white;}
+th{ background-color: DodgerBlue; color:white;}
+th:hover{ background-color: DeepSkyBlue; color:black;}
+</style>
+</head>
+<body>
+
+ <div  id="regid" data-ng-controller="RegistrationController">
+ 
+		
+		<div class="container-fluid tab-pane a">
+		<br/><br/><br/><br/>
+	    <div class="row  text-center">
+		<div class="col-2"></div>
+		<div class="col-8">
+			<form><table class="table table-bordered" style="text-align:center;">
+				<tr>
+					<th>Branch Code</th>
+					<th>Quick Actions</th>
+				</tr>
+				<tr>
+				<td><input type="text"  class="form-control" data-ng-model="data.object.branchcode" required></td>
+					<td style="display:none;"><input type="text"  class="form-control" data-ng-model="data.object.oldbranchcode" data-ng-value="data.object.branchcode"></td>
+				<td class="text-center">
+				<button type="submit" class="btn btn-primary btn-md" data-ng-click="insertBranch(data.object);">
+					<span class="glyphicon glyphicon-pencil "> ADD </span>
+				</button>
+				</td>
+				</tr>
+				<tr data-ng-repeat="bdata in branchdetails">
+					<td><input type="text"  class="form-control" data-ng-model="bdata.branchcode" data-ng-value="bdata.branchcode" required></td>
+					<td style="display:none;"><input type="text"  class="form-control" data-ng-model="bdata.branchid" data-ng-value="bdata.branchid"></td>
+					<td style="display:none;"><input type="text"  class="form-control" data-ng-model="bdata.oldbranchcode" data-ng-value="bdata.branchcode"></td>
+				    <td>
+					    <button type="submit" data-ng-click="updateBranch(bdata);" class="btn btn-success btn-md">
+							<span class="glyphicon glyphicon-pencil">Modify</span>
+						</button>
+						<button type="button"  data-ng-click="removeBranch(bdata);" class="btn btn-danger btn-md">
+							<span class="glyphicon glyphicon-pencil">Delete</span>
+						</button>
+					</td>
+				</tr>
+			</table></form>
+			</div>
+			<div class="col-2"></div>
+			</div>
+		</div>
+		
+
+		
+ </div>
+ 
+	<script>
+		jQuery(document).ready(function() {
+			
+			angular.bootstrap(jQuery("#regid"), [ 'RegistrationModule' ]);
+			var currentPage='g';
+			localStorage.setItem("currentPage",currentPage);
+			
+			
+		});
+		
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ApplicationRegister">
+
+<!-- ====================================================================================LOGIN OPERATIONS================================================================================================================= -->
+
+<select id="CheckRegistertaion" parameterType="map"	resultType="java.lang.Integer">
+		select count(*) from public.login WHERE username=#{T.username} AND password=#{T.password} AND status!='Terminated';
+</select>
+
+<select id="getUserDetails" parameterType="map"	resultType="Register">
+	select username,password,role,name,email,mobileno,id,qualification,branchcode from public.login where username=#{username} AND status!='Terminated';
+</select>
+
+<select id="verifyEmail" parameterType="java.lang.String"	resultType="java.lang.Integer">
+		select count(*) from public.login WHERE email=#{email} AND status!='Terminated';
+</select>
+
+<select id="getPersonDetails" parameterType="java.lang.String"	resultType="Register">
+	select username,password,role,name,email,mobileno,id,qualification,branchcode from public.login where email=#{email} AND status!='Terminated';
+</select>
+
+<update id="changePassword"  parameterType="map">
+		update public.login SET password=#{T.password} WHERE username=#{T.username};
+</update>
+
+<!-- ====================================================================================PROFILE OPERATIONS================================================================================================================= -->
+
+<select id="getProfile" resultType="Register">
+		SELECT username,password,role,branchcode,name,email,mobileno,gender,address,experience,id,qualification from public.login where id=#{id} AND status!='Terminated';
+</select>
+
+<update id="updateProfileDetails"  parameterType="map">
+		update public.login SET username=#{T.username},role=#{T.role},gender=#{T.gender},address=#{T.address},experience=#{T.experience},branchcode=#{T.branchcode},name=#{T.name},email=#{T.email},mobileno=#{T.mobileno},qualification=#{T.qualification} WHERE id=#{T.id} AND status!='Terminated';
+</update>
+
+<!-- ====================================================================================REGESTERED MEMBERS OPERATIONS (BY ADMIN)================================================================================================================= -->
+
+<insert id="insertDetails" parameterType="map">
+        insert into public.login( username,password,branchcode,role,email,status ) values(#{T.username},#{T.password},#{T.branchcode},#{T.role},#{T.email},#{T.status});
+</insert>
+
+<update id="updateDetails"  parameterType="map">
+		update public.login SET username=#{T.username},branchcode=#{T.branchcode},role=#{T.role},email=#{T.email} WHERE id=#{T.id}  AND status!='Terminated';
+</update>
+
+<update id="removeDetails" parameterType="java.lang.String">
+		update public.login SET status='Terminated' where username = #{username};
+</update>
+
+<select id="viewaccounts" resultType="Register">
+		SELECT username,password,branchcode,id,role,email,status from public.login where role!='Admin' ORDER BY role DESC,status;
+</select> 
+
+<!-- ====================================================================================Student Registration OPERATIONS================================================================================================================= -->
+
+<insert id="insertStudentDetails" parameterType="map">
+        insert into public.student_login( name,email,stu_pin1,stu_pin2,stu_pin3,year,mobileno,status ) values(#{T.name},#{T.email},#{T.stu_pin1},#{T.stu_pin2},#{T.stu_pin3},#{T.year},#{T.mobileno},'Active');
+</insert>
+
+<select id="viewaccountsforfaculty" resultType="Register">
+		SELECT name,stu_pin1,stu_pin2,stu_pin3,email,year,mobileno,studentid from public.student_login where stu_pin2=#{branchcode} AND status!='Terminated' ORDER BY stu_pin1,stu_pin3;
+</select> 
+
+<select id="viewaccountsforfaculty1" resultType="Register">
+		SELECT distinct stu_pin1 from public.student_login where stu_pin2=#{branchcode} AND status!='Terminated' ORDER BY stu_pin1;
+</select> 
+
+<select id="viewaccountsforfaculty2" resultType="Register">
+		SELECT distinct stu_pin3 from public.student_login where stu_pin2=#{branchcode} AND status!='Terminated' ORDER BY stu_pin3;
+</select> 
+
+<update id="updateStudentDetails" parameterType="map">
+        update public.student_login set name=#{T.name},email=#{T.email},stu_pin1=#{T.stu_pin1},stu_pin2=#{T.stu_pin2},stu_pin3=#{T.stu_pin3},year=#{T.year},mobileno=#{T.mobileno} where studentid=#{T.studentid};
+</update>
+
+<update id="removeStudentDetails" parameterType="map">
+		update public.student_login SET status='Terminated' where studentid = #{T.studentid};
+</update>
+
+<!-- ====================================================================================PRINCIPAL OPERATIONS================================================================================================================= -->
+
+<select id="viewaccountsforprincipal" resultType="Register">
+		SELECT username,password,branchcode,id,role,qualification,email,experience from public.login where (role='HOD' AND status!='Terminated') ORDER BY branchcode;
+</select> 
+
+<select id="viewaccountsforprincipal1" resultType="Register">
+		SELECT username,password,branchcode,id,role,qualification,email,experience from public.login where (role='Faculty' AND status!='Terminated') ORDER BY branchcode;
+</select> 
+
+<select id="viewaccountsforprincipal2" resultType="Register">
+		SELECT name,stu_pin1,stu_pin2,stu_pin3,email,year,mobileno,studentid from public.student_login where (status!='Terminated') ORDER BY stu_pin2,year,stu_pin3;
+</select> 
+
+<update id="promote">
+        update public.student_login SET year=(CHR(ASCII(year)+1));
+</update>
+
+<select id="getPromotionDate" resultType="Register">
+		SELECT edate from public.promotion_flag;
+</select> 
+
+<update id="setPromotionDate">
+        update public.promotion_flag SET edate=#{edate};
+</update>
+
+<select id="getCompletedList" resultType="Register">
+		SELECT stu_pin1,stu_pin2,stu_pin3  from public.student_login where year='5';
+</select>
+
+<delete id="removeCompleted1"  parameterType="map">
+        delete from public.student_login where stu_pin1=#{T.stu_pin1} AND stu_pin2=#{T.stu_pin2} AND stu_pin3=#{T.stu_pin3};
+</delete>
+
+<delete id="removeCompleted2"  parameterType="map">
+        delete from public.student_marks where stu_pin1=#{T.stu_pin1} AND stu_pin2=#{T.stu_pin2} AND stu_pin3=#{T.stu_pin3};
+</delete>
+
+<delete id="removeCompleted3"  parameterType="map">
+        delete from public.student_attendance where stu_pin1=#{T.stu_pin1} AND stu_pin2=#{T.stu_pin2} AND stu_pin3=#{T.stu_pin3};
+</delete>
+
+<!-- ====================================================================================HOD OPERATIONS================================================================================================================= -->
+
+<select id="viewaccountsforhod" resultType="Register" parameterType="java.lang.String">
+		SELECT username,password,branchcode,id,role,qualification,email,experience from public.login where (role='Faculty' OR role='HOD') AND branchcode=#{branchcode} AND status!='Terminated' order by role desc;
+</select> 
+
+<select id="viewaccountsforhod1" resultType="Register" parameterType="java.lang.String">
+		SELECT name,stu_pin1,stu_pin2,stu_pin3,email,year,mobileno,studentid from public.student_login where stu_pin2=#{branchcode} AND status!='Terminated' order by year,stu_pin3;
+</select> 
+
+<!-- ====================================================================================Faculty Attendance OPERATIONS================================================================================================================= -->
+
+<select id="viewFacultyAttendance" resultType="Register">
+		SELECT facultyid,branchcode,date::date,attendance,facultyattendanceid from public.faculty_attendance where branchcode=#{T.branchcode} AND ((date between #{T.sdate} AND #{T.edate}) OR (date between #{T.edate} AND #{T.sdate})) order by date,facultyid;
+</select> 
+
+<insert id="insertFacultyAttendance" parameterType="map">
+        insert into public.faculty_attendance( facultyid,branchcode,date,attendance ) values(#{T.facultyid},#{T.branchcode},#{T.date},#{T.attendance});
+</insert>
+
+<update id="updateFacultyAttendance"  parameterType="map">
+		update public.faculty_attendance SET facultyid=#{T.facultyid},date=#{T.date},attendance=#{T.attendance} WHERE facultyattendanceid=#{T.facultyattendanceid};
+</update>
+
+<delete id="removeFacultyAttendance" parameterType="java.lang.Integer">
+		delete from public.faculty_attendance where facultyattendanceid = #{facultyattendanceid};
+</delete>
+
+<select id="getDates1" resultType="Register">
+		SELECT generate_series::date as  date from generate_series(#{T.sdate}::date,#{T.edate}::date, '1 day');
+</select> 
+
+<select id="getAttendance1" resultType="Register">
+		SELECT  facultyid,date::date,attendance,facultyattendanceid,branchcode from public.faculty_attendance where facultyid=#{T.username} AND date=#{T.date};
+</select> 
+
+<!-- ====================================================================================Student Attendance OPERATIONS================================================================================================================= -->
+
+<select id="viewStudentAttendance" resultType="Register">
+		SELECT facultyid,date::date,attendance,studentattendanceid,stu_pin1,stu_pin2,stu_pin3 from public.student_attendance where facultyid=#{T.facultyid} AND ((date between #{T.sdate} AND #{T.edate}) OR (date between #{T.edate} AND #{T.sdate})) order by date,stu_pin1,stu_pin3;
+</select> 
+
+<insert id="insertStudentAttendance" parameterType="map">
+        insert into public.student_attendance( stu_pin1,stu_pin2,stu_pin3,facultyid,date,attendance ) values(#{T.stu_pin1},#{T.stu_pin2},#{T.stu_pin3},#{T.facultyid},#{T.date},#{T.attendance});
+</insert>
+
+<update id="updateStudentAttendance"  parameterType="map">
+		update public.student_attendance SET stu_pin1=#{T.stu_pin1},stu_pin3=#{T.stu_pin3},facultyid=#{T.facultyid},date=#{T.date},attendance=#{T.attendance} WHERE studentattendanceid=#{T.studentattendanceid};
+</update>
+
+<delete id="removeStudentAttendance" parameterType="java.lang.Integer">
+		delete from public.student_attendance where studentattendanceid = #{studentattendanceid};
+</delete>
+
+<select id="getDates" resultType="Register">
+		SELECT generate_series::date as  date from generate_series(#{T.sdate}::date,#{T.edate}::date, '1 day');
+</select> 
+
+<select id="checkPin" parameterType="map" resultType="java.lang.Integer">
+		select count(*) from public.student_login WHERE stu_pin1=#{T.stu_pin1} AND stu_pin2=#{T.stu_pin2} AND stu_pin3=#{T.stu_pin3} AND status!='Terminated';
+</select> 
+
+<select id="getAttendance" resultType="Register">
+		SELECT  facultyid,date::date,attendance,studentattendanceid,stu_pin1,stu_pin2,stu_pin3 from public.student_attendance where stu_pin1=#{T.stu_pin1} AND stu_pin2=#{T.stu_pin2} AND stu_pin3=#{T.stu_pin3} AND date=#{T.date};
+</select> 
+
+<select id="getHolidayReason" parameterType="map" resultType="Register">
+		SELECT reason,reasonid,date from public.holiday_mst where date=#{T.date};
+</select> 
+
+<!-- ====================================================================================Getting Sem and Subject================================================================================================================= -->
+
+<select id="getSemisters" resultType="map">
+		SELECT distinct sem from public.subject_mst ORDER BY sem;
+</select>
+	
+<select id="getSubjects" parameterType="java.lang.String" resultType="map">
+		SELECT distinct sem,subject from public.subject_mst where sem=#{sem} ORDER BY subject;
+</select>
+		
+<select id="getStu_Pin3" parameterType="Register" resultType="map">
+		SELECT distinct stu_pin3 from public.student_login where stu_pin1=#{T.stu_pin1} AND stu_pin2=#{T.stu_pin2} ORDER BY stu_pin3;
+</select>
+	
+<!-- ====================================================================================Student Marks OPERATIONS================================================================================================================= -->
+
+<select id="viewStudentMarks" resultType="Register">
+		SELECT facultyid,mid1,mid2,mid3,studentmarksid,stu_pin1,stu_pin2,stu_pin3,sem,subject,status from public.student_marks where facultyid=#{facultyid} AND status!='Terminated' order by stu_pin1,stu_pin3;
+</select> 
+
+<insert id="insertstudentMarks" parameterType="map">
+        insert into public.student_marks( stu_pin1,stu_pin2,stu_pin3,facultyid,mid1,mid2,mid3,sem,subject,status ) values(#{T.stu_pin1},#{T.stu_pin2},#{T.stu_pin3},#{T.facultyid},#{T.mid1},#{T.mid2},#{T.mid3},#{T.sem},#{T.subject},#{T.status});
+</insert>
+
+<update id="updatestudentMarks"  parameterType="map">
+		update public.student_marks SET stu_pin1=#{T.stu_pin1},stu_pin3=#{T.stu_pin3},mid1=#{T.mid1},mid2=#{T.mid2},mid3=#{T.mid3},facultyid=#{T.facultyid},sem=#{T.sem},subject=#{T.subject} WHERE studentmarksid=#{T.studentmarksid};
+</update>
+
+<delete id="removestudentMarks" parameterType="java.lang.Integer">
+		delete from public.student_marks where studentmarksid = #{studentmarksid};
+</delete>
+
+<select id="viewIndividualStudentMarks" resultType="Register">
+		SELECT facultyid,mid1,mid2,mid3,studentmarksid,stu_pin1,stu_pin2,stu_pin3,sem,subject from public.student_marks where stu_pin1=#{T.stu_pin1} AND stu_pin2=#{T.stu_pin2} AND stu_pin3=#{T.stu_pin3} AND sem=#{T.sem} order by sem;
+</select> 
+
+<!-- ====================================================================================Student data Viewing OPERATIONS================================================================================================================= -->
+
+<select id="viewIndividualStudentMarks1" resultType="Register">
+		SELECT facultyid,mid1,mid2,mid3,studentmarksid,stu_pin1,stu_pin2,stu_pin3,sem,subject from public.student_marks where stu_pin2=#{T.branchcode} AND sem=#{T.sem} AND subject=#{T.subject} order by stu_pin1,stu_pin3;
+</select> 
+
+<select id="viewIndividualStudentAttendance1" resultType="Register">
+		SELECT facultyid,date,attendance,studentattendanceid,stu_pin1,stu_pin2,stu_pin3 from public.student_attendance where ((date between #{T.sdate} AND #{T.edate}) OR (date between #{T.edate} AND #{T.sdate})) order by date,stu_pin2,stu_pin1,stu_pin3;
+</select> 
+
+<select id="viewIndividualStudentAttendance2" resultType="Register">
+		SELECT facultyid,date,attendance,studentattendanceid,stu_pin1,stu_pin2,stu_pin3 from public.student_attendance where stu_pin2=#{T.stu_pin2} AND ((date between #{T.sdate} AND #{T.edate}) OR (date between #{T.edate} AND #{T.sdate})) order by date,stu_pin1,stu_pin3;
+</select> 
+
+<!-- ====================================================================================Feedback Operations================================================================================================================= -->
+
+<insert id="insertFeedback" parameterType="map">
+        insert into public.feedback( name,email,feedback,status,reply ) values(#{T.name},#{T.email},#{T.feedback},#{T.status},#{T.reply});
+</insert>
+
+<select id="viewFeedbacks" resultType="map">
+		SELECT name,email,feedback,status,reply from public.feedback where status!='Terminated';
+</select>
+
+<update id="deleteFeedback" parameterType="Register">
+		update public.feedback SET status='Terminated' where name=#{T.name} AND email=#{T.email} AND feedback=#{T.feedback};
+</update>
+
+<update id="sendReply"  parameterType="map">
+		update public.feedback SET reply=#{T.reply} where name=#{T.name} AND email=#{T.email} AND feedback=#{T.feedback};
+</update>
+
+<!-- ====================================================================================Subject OPERATIONS================================================================================================================= -->
+
+<select id="viewSubjects" resultType="map">
+		SELECT subject,sem,subjectid from public.subject_mst order by subject,sem;
+</select>
+
+<insert id="insertSubject" parameterType="map">
+        insert into public.subject_mst( sem,subject ) values(#{T.sem},#{T.subject});
+</insert>
+
+<update id="updateSubject" parameterType="map">
+        update public.subject_mst SET sem=#{T.sem},subject=#{T.subject} where subjectid=#{T.subjectid};        
+</update>
+
+<delete id="removeSubject" parameterType="Register">
+		delete from public.subject_mst where subjectid=#{T.subjectid};
+</delete>
+
+<!-- ====================================================================================Semester OPERATIONS================================================================================================================= -->
+
+<select id="viewSemesters" resultType="map">
+		SELECT sem,semid from public.sem_mst order by sem;
+</select>
+
+<insert id="insertSem" parameterType="map">
+        insert into public.sem_mst( sem) values(#{T.sem});
+</insert>
+
+<update id="updateSem" parameterType="map">
+        update public.sem_mst SET sem=#{T.sem} where semid=#{T.semid};
+</update>
+
+<delete id="removeSem" parameterType="Register">
+		delete from public.sem_mst where semid=#{T.semid};
+</delete>
+
+<!-- ====================================================================================Branch OPERATIONS================================================================================================================= -->
+
+<select id="viewBranches" resultType="map">
+		SELECT branchid,branchcode from public.branch_mst order by branchcode;
+</select>
+
+<insert id="insertBranch" parameterType="map">
+        insert into public.branch_mst( branchcode) values(#{T.branchcode});
+</insert>
+
+<update id="updateBranch" parameterType="map">
+        update public.branch_mst SET branchcode=#{T.branchcode} where branchid=#{T.branchid};
+</update>
+
+<delete id="removeBranch" parameterType="Register">
+		delete from public.branch_mst where branchid=#{T.branchid};
+</delete>
+
+<!-- ====================================================================================Qualification OPERATIONS================================================================================================================= -->
+
+<select id="viewQualifications" resultType="map">
+		SELECT qid,qname from public.qualification_mst order by qname;
+</select>
+
+<insert id="insertQualification" parameterType="map">
+        insert into public.qualification_mst( qname) values(#{T.qname});
+</insert>
+
+<update id="updateQualification" parameterType="map">
+        update public.qualification_mst SET qname=#{T.qname} where qid=#{T.qid};
+</update>
+
+<delete id="removeQualification" parameterType="Register">
+		delete from public.qualification_mst where qid=#{T.qid};
+</delete>
+
+<!-- ====================================================================================Holiday OPERATIONS================================================================================================================= -->
+
+<select id="viewHolidays" resultType="map">
+		SELECT reasonid,reason,date::date from public.holiday_mst order by date;
+</select>
+
+<insert id="insertHoliday" parameterType="map">
+        insert into public.holiday_mst( date,reason) values(#{T.date},#{T.reason});
+</insert>
+
+<update id="updateHoliday" parameterType="map">
+        update public.holiday_mst SET reason=#{T.reason},date=#{T.date} where reasonid=#{T.reasonid};
+</update>
+
+<delete id="removeHoliday" parameterType="Register">
+		delete from public.holiday_mst where reasonid=#{T.reasonid};
+</delete>
+
+
+<!-- ====================================================================================Faq OPERATIONS================================================================================================================= -->
+
+<select id="viewFaqs" resultType="map">
+		SELECT question,answer,faqid,status from public.faq where status!='Terminated' order by faqid;
+</select>
+
+<insert id="insertFaq" parameterType="map">
+        insert into public.faq( question,answer,status) values(#{T.question},#{T.answer},#{T.status});
+</insert>
+
+<update id="updateFaq" parameterType="map">
+        update public.faq SET question=#{T.question},answer=#{T.answer} where faqid=#{T.faqid};
+</update>
+
+<update id="removeFaq" parameterType="Register">
+		update public.faq SET status='Terminated' where faqid=#{T.faqid};
+</update>
+
+<!-- ====================================================================================Contact details OPERATIONS================================================================================================================= -->
+
+<select id="viewContacts" resultType="map">
+		SELECT detailid,detailname,detailvalue from public.contact_mst order by detailid;
+</select>
+
+<insert id="insertContact" parameterType="map">
+        insert into public.contact_mst( detailname,detailvalue) values(#{T.detailname},#{T.detailvalue});
+</insert>
+
+<update id="updateContact" parameterType="map">
+        update public.contact_mst SET detailname=#{T.detailname},detailvalue=#{T.detailvalue} where detailid=#{T.detailid};
+</update>
+
+<delete id="removeContact" parameterType="Register">
+		delete from public.contact_mst where detailid=#{T.detailid};
+</delete>
+
+<!-- ====================================================================================Contact details OPERATIONS================================================================================================================= -->
+
+<select id="viewMap" resultType="Register">
+		SELECT maplink from public.map_mst;
+</select>
+
+<update id="updateMap" parameterType="java.lang.String">
+        update public.map_mst SET maplink=#{maplink};
+</update>
+
+
+</mapper>
