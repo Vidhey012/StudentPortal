@@ -15,6 +15,11 @@ input[type=text], input[type=password] {
   box-sizing: border-box;
 }
 
+input[type=checkbox] {
+  display: inline-block;
+  border-radius: 100%;
+}
+
 /* Set a style for all buttons */
 button {
   background-color: #4CAF50;
@@ -48,6 +53,11 @@ img.avatar {
 }
 
 span.psw {
+  float:right;
+  padding-top: 16px;
+}
+
+span.rm {
   float:left;
   padding-top: 16px;
 }
@@ -114,11 +124,12 @@ span.psw {
 
     <div class="container">
       <h4><b>Username :</b></h4>
-      <input type="text" placeholder="Enter Username" data-ng-model="data.object.username" style="border-radius:50px;" required>
+      <input type="text" id="user" placeholder="Enter Username" data-ng-model="data.object.username" style="border-radius:50px;" required>
 
       <h4><b>Password :</b></h4>
       <input type="password" name="pwd" id="input-pwd" placeholder="Enter Password" data-ng-model="data.object.password" style="border-radius:50px;" required>
       <span toggle="#input-pwd" class="fa fa-fw fa-eye field-icon toggle-password d-none d-xl-block"></span>
+      <span class="rm"><input type="checkbox"  data-ng-model="data.object.reply">&nbsp;Remember</span><span class="rm" style="color:white">&nbsp;Me?</span>
       <span class="psw">Forgot <a href="#" style="color:white;" onclick="Nav.showForgotPasswordPage();">password?</a></span>
       <button type="submit" style="border-radius:50px;" data-ng-click="login(data.object);">Login</button>
       
@@ -135,7 +146,10 @@ span.psw {
 			var currentPage='e';
 			localStorage.setItem("currentPage",currentPage);
 			angular.bootstrap(jQuery("#regid"), [ 'RegistrationModule' ]);
-           
+			if(localStorage.getItem("userName")!="undefined" && localStorage.getItem("password")!="undefined" && localStorage.getItem("userName")!=null && localStorage.getItem("password")!=null){
+				document.getElementById("user").value=localStorage.getItem("userName");
+				document.getElementById("input-pwd").value=localStorage.getItem("password");
+			}
 		});
 		
 		$('.toggle-password').on('click', function() {
@@ -148,7 +162,6 @@ span.psw {
 			    input.attr('type', 'password');
 			  }
 			});
-
 	</script>
 	
 </body>

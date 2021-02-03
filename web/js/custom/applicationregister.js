@@ -6,8 +6,12 @@ var uid=parseInt(localStorage.getItem("uid"));
 var role=localStorage.getItem("role");
 var isUserLoggedIn=parseInt(localStorage.getItem("isUserLoggedIn"));
 var currentPage=localStorage.getItem("currentPage");
+var endtime=new Date(localStorage.getItem("endtime"));
 
-console.log(uname + " " + branchcode + " " + uid + " " + role + " " + isUserLoggedIn + " " + currentPage);
+console.log(uname + " " + branchcode + " " + uid + " " + role + " " + isUserLoggedIn + " " + currentPage+" "+endtime);	
+
+
+
 /*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/	
 
 
@@ -15,8 +19,7 @@ var reg = angular.module('RegistrationModule', []);
 
 
 reg.controller('RegistrationController', ['$http','$scope','$sce', function($http, $scope,$sce) {
-	
-	
+
 	
 	
 /*------------------------------------------------------------------Converts TEXT to URL--------------------------------------------------------------------------------*/
@@ -28,7 +31,42 @@ reg.controller('RegistrationController', ['$http','$scope','$sce', function($htt
 			    return $sce.trustAsResourceUrl(src);
 			  }
 
+			
+			
+/*------------------------------------------------------------------Execute for every 1 second (Checks Login expiring time )--------------------------------------------------------------------------------*/
+
 		 
+		 	
+		 	var intervalId = window.setInterval(function(){
+		 		var currentTime=new Date();
+		 		var endTime=new Date(localStorage.getItem("endtime"));
+		 		  if(endTime!=null && endTime<=currentTime){
+		 			  swal({
+		 				  title: "Session Timeout!",
+		 				  text: "Please Login Again :)",
+		 				  icon: "info",
+		 				}).then(() => {
+		 					$scope.isUserLoggedIn=0;
+		 					$scope.currentPage='e';
+		 					$scope.uname=null;
+		 					$scope.uid=0;
+		 					$scope.role=null;
+		 					$scope.branchcode=null;
+		 					$scope.endtime=null;
+		 					localStorage.setItem("uname",$scope.uname);
+		 					localStorage.setItem("uid",$scope.uid);
+		 					localStorage.setItem("branchcode",$scope.role);
+		 					localStorage.setItem("role",$scope.branchcode);
+		 					localStorage.setItem("isUserLoggedIn", $scope.isUserLoggedIn);
+		 					localStorage.setItem("currentPage",$scope.currentPage);
+		 					localStorage.setItem("endtime",$scope.endtime);
+		 					console.log(uname);
+		 			        Nav.showBeforeLoginPage();
+		 				});
+		 		  }
+		 		}, 1000);	
+		 	
+		 	
 		 
 		 
 /*------------------------------------------------------------------PROFILE OPERATIONS--------------------------------------------------------------------------------*/			
@@ -127,7 +165,14 @@ reg.controller('RegistrationController', ['$http','$scope','$sce', function($htt
 	
 	
 $scope.login = function(object) {
+	    if(object==undefined){
+	    	object={username:localStorage.getItem("userName"),password:localStorage.getItem("password"),reply:false};
+	    }
 		console.log(object);
+		if(object.reply!=undefined && object.reply==true){
+			localStorage.setItem("userName",object.username);
+			localStorage.setItem("password",object.password);
+		}
 		object.password=window.btoa(object.password);
 		$http.post('/Student_Portal/register/login', object).then(
 				function(response) {
@@ -142,12 +187,15 @@ $scope.login = function(object) {
 							.then(() => {
                                 $scope.isUserLoggedIn=1;
                                 $scope.currentPage='a';
+                                $scope.endtime=new Date();
+                                $scope.endtime.setMinutes ( $scope.endtime.getMinutes() + 300 );
 								localStorage.setItem("uname",object.username);
 								localStorage.setItem("uid",response.data.responseObject.id);
 								localStorage.setItem("branchcode",response.data.responseObject.branchcode);
 								localStorage.setItem("role",response.data.responseObject.role);
 								localStorage.setItem("isUserLoggedIn", $scope.isUserLoggedIn);
 								localStorage.setItem("currentPage",$scope.currentPage);
+								localStorage.setItem("endtime",$scope.endtime);
 								console.log(response.data);
 								window.location.reload();
 								
@@ -185,12 +233,14 @@ $scope.logout = function() {
 						$scope.uid=0;
 						$scope.role=null;
 						$scope.branchcode=null;
+						$scope.endtime=null;
 						localStorage.setItem("uname",$scope.uname);
 						localStorage.setItem("uid",$scope.uid);
 						localStorage.setItem("branchcode",$scope.role);
 						localStorage.setItem("role",$scope.branchcode);
 						localStorage.setItem("isUserLoggedIn", $scope.isUserLoggedIn);
 						localStorage.setItem("currentPage",$scope.currentPage);
+						localStorage.setItem("endtime",$scope.endtime);
 						console.log(uname);
 				        Nav.showBeforeLoginPage();
 					});
