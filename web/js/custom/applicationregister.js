@@ -40,7 +40,7 @@ reg.controller('RegistrationController', ['$http','$scope','$sce', function($htt
 		 	var intervalId = window.setInterval(function(){
 		 		var currentTime=new Date();
 		 		var endTime=new Date(localStorage.getItem("endtime"));
-		 		  if(endTime!=null && endTime<=currentTime){
+		 		  if(endTime!=null && endTime<=currentTime && localStorage.getItem("role")!=null){
 		 			  swal({
 		 				  title: "Session Timeout!",
 		 				  text: "Please Login Again :)",
