@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<project name="Student_Portal" default="war" basedir=".">
+	<description>Application build file</description>
+	<target name="war">
+		<mkdir dir="warfile" />
+		<war destfile="warfile/Student_Portal.war" webxml="web/WEB-INF/web.xml">
+			<fileset dir="web" />
+			<classes dir="web/WEB-INF/classes" />
+		</war>
+           
+		<copy todir="C:\Spring-Tool-Suite\apache-tomcat-7.0.85\webapps" flatten="true">
+			<resources>
+				<file file="warfile/Student_Portal.war" />
+			</resources>
+		</copy>
+	</target>
+
+	<target name="clean" description="clean up">
+		<delete dir="${dist}" />
+	</target>
+
+</project>
