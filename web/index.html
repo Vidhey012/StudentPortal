@@ -1,0 +1,180 @@
+<!-- Alt+Shift+x,q -->
+<html>
+<head>
+
+<title>Student Portal</title>
+
+<!-- image on title bar -->
+<link rel="shortcut icon" type="image/x-icon" href="/Student_Portal/graphics/logo.png" />
+
+<!-- JQuery -->
+<script src="/Student_Portal/js/others/jquery-2.1.1.js"></script>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="/Student_Portal/css/bootstrap.min.css">
+<script src="/Student_Portal/js/others/bootstrap.min.js"></script>
+
+<!-- Sweet Alerts -->
+<script src="/Student_Portal/js/others/sweetalert.min.js"></script>
+
+<!-- CSS Files -->
+<link href="/Student_Portal/css/angular-ui.min.css" rel="stylesheet">               
+
+<!-- Custom js -->
+<script type="text/javascript" src="/Student_Portal/js/custom/angular.js"></script>
+<script type="text/javascript"	src="/Student_Portal/js/custom/navigate.js"></script>
+<script type="text/javascript"	src="/Student_Portal/js/custom/applicationregister.js"></script>
+
+</head>
+<body id="displayArea">
+
+	<script type="text/javascript">
+		jQuery(document).ready(function() {
+			var role=localStorage.getItem("role");
+			var isUserLoggedIn=parseInt(localStorage.getItem("isUserLoggedIn"));
+			var currentPage=localStorage.getItem("currentPage");
+			
+			if(isUserLoggedIn==1){
+				
+				if(role=='Admin'){
+					Nav.showAdminLoginPage();
+					if(currentPage=='a' || currentPage==null){
+						Nav.showAdminHomePage();					
+						}
+					else if(currentPage=='b'){
+						Nav.showAdminProfilePage();					
+					}
+					else if(currentPage=='c'){
+						Nav.showAddMemberPage();					
+					}
+					else if(currentPage=='d'){
+						Nav.showMessagesPage();					
+					}
+					else if(currentPage=='e'){
+						Nav.showAddSubjectPage();					
+					}
+					else if(currentPage=='f'){
+						Nav.showAddSemPage();					
+					}
+					else if(currentPage=='g'){
+						Nav.showAddBranchPage();					
+					}
+					else if(currentPage=='h'){
+						Nav.showAddQualificationPage();					
+					}
+					else if(currentPage=='i'){
+						Nav.showAddHolidayPage();					
+					}
+					else if(currentPage=='j'){
+						Nav.showAddPage();					
+					}
+					else if(currentPage=='k'){
+						Nav.showAddFaqPage();					
+					}
+					else if(currentPage=='l'){
+						Nav.showAddContactPage();					
+					}
+					else if(currentPage=='cp'){
+						Nav.showChangePasswordPage();					
+					}
+				}
+				
+				else if(role=='Principal'){
+					Nav.showPrincipalLoginPage();
+					if(currentPage=='a' || currentPage==null){
+						Nav.showPrincipalHomePage();					
+						}
+					else if(currentPage=='b'){
+						Nav.showPrincipalProfilePage();					
+					}
+					else if(currentPage=='c'){
+						Nav.showPrincipalDashboardPage();					
+					}
+					else if(currentPage=='cp'){
+						Nav.showChangePasswordPage();					
+					}
+				}
+				
+				else if(role=='HOD'){
+					Nav.showHodLoginPage();
+					if(currentPage=='a' || currentPage==null){
+						Nav.showHodHomePage();					
+						}
+					else if(currentPage=='b'){
+						Nav.showHodProfilePage();					
+					}
+					else if(currentPage=='c'){
+						Nav.showHodDashboardPage();					
+					}
+					else if(currentPage=='d'){
+						Nav.showFacultyAttendancePage();					
+					}
+					else if(currentPage=='e'){
+						Nav.showHodAttendancePage();					
+					}
+					else if(currentPage=='cp'){
+						Nav.showChangePasswordPage();					
+					}
+				}
+				
+				else if(role=='Faculty'){
+					Nav.showFacultyLoginPage();
+					if(currentPage=='a' || currentPage==null){
+						Nav.showFacultyHomePage();					
+						}
+					else if(currentPage=='b'){
+						Nav.showFacultyProfilePage();					
+					}
+					else if(currentPage=='c'){
+						Nav.showAddMarksPage();					
+					}
+					else if(currentPage=='d'){
+						Nav.showAddAttendancePage();					
+					}
+					else if(currentPage=='e'){
+						Nav.showMyAttendancePage();					
+					}
+					else if(currentPage=='f'){
+						Nav.showAddCriteriaPage();					
+					}
+					else if(currentPage=='g'){
+						Nav.showAddStudentPage();					
+					}
+					else if(currentPage=='cp'){
+						Nav.showChangePasswordPage();					
+					}
+				}
+				
+				}
+			else{
+				Nav.showBeforeLoginPage();
+				if(currentPage=='a' || currentPage==null){
+					Nav.showHomePage();					
+					}
+				else if(currentPage=='b'){
+					Nav.showAboutPage();					
+				}
+				else if(currentPage=='c'){
+					Nav.showStudentPortalPage();				
+				}
+				else if(currentPage=='d'){
+					Nav.showContactPage();					
+				}
+				else if(currentPage=='e'){
+					Nav.showLoginPage();
+				}
+				else if(currentPage=='f'){
+					Nav.showFeedbackPage();
+				}
+				else if(currentPage=='g'){
+					Nav.showFaqPage();
+				}
+			}
+			
+		});
+	</script>
+</body>
+</html>
