@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<style>
+body::-webkit-scrollbar { display: none; }
+.a{width: 100%;  height: 100%;  overflow: auto;}
+td{ background-color: DeepSkyBlue; color:black;}
+td:hover{ background-color: DodgerBlue; color:white;}
+th{ background-color: DodgerBlue; color:white;}
+th:hover{ background-color: DeepSkyBlue; color:black;}
+</style>
+</head>
+<body>
+
+ <div  id="regid" data-ng-controller="RegistrationController">
+ 
+		
+		<div class="container-fluid tab-pane a">
+		<br/><br/><br/><br/>
+	    <div class="row  text-center">
+		<div class="col-2"></div>
+		<div class="col-8">
+			<form><table class="table table-bordered" style="text-align:center;">
+				<tr>
+					<th>Date</th>
+					<th>Reason</th>
+					<th>Quick Actions</th>
+				</tr>
+				<tr>
+				<td><input type="date"  class="form-control" data-ng-model="data.object.date" required></td>
+				<td><input type="text"  class="form-control" data-ng-model="data.object.reason" pattern="[a-zA-Z0-9/\s]{5,}" required></td>
+				<td class="text-center">
+				<button type="submit" class="btn btn-primary btn-md" data-ng-click="insertHoliday(data.object);">
+					<span class="glyphicon glyphicon-pencil "> ADD </span>
+				</button>
+				</td>
+				</tr>
+				<tr data-ng-repeat="hdata in holidaydetails">
+					<td><input type="date"  class="form-control" data-ng-model="hdata.date" data-ng-value="hdata.date" required></td>
+					<td><input type="text"  class="form-control" data-ng-model="hdata.reason" data-ng-value="hdata.reason" pattern="[a-zA-Z0-9/\s]{5,}" required></td>
+					<td style="display:none;"><input type="text"  class="form-control" data-ng-model="hdata.reasonid" data-ng-value="hdata.reasonid"></td>
+				    <td>
+					    <button type="submit" data-ng-click="updateHoliday(hdata);" class="btn btn-success btn-md">
+							<span class="glyphicon glyphicon-pencil">Modify</span>
+						</button>
+						<button type="button"  data-ng-click="removeHoliday(hdata);" class="btn btn-danger btn-md">
+							<span class="glyphicon glyphicon-pencil">Delete</span>
+						</button>
+					</td>
+				</tr>
+			</table></form>
+			</div>
+			<div class="col-2"></div>
+			</div>
+		</div>
+		
+
+		
+ </div>
+ 
+	<script>
+		jQuery(document).ready(function() {
+			
+			angular.bootstrap(jQuery("#regid"), [ 'RegistrationModule' ]);
+			var currentPage='i';
+			localStorage.setItem("currentPage",currentPage);
+			
+			
+		});
+		
+	</script>
+
+</body>
+</html>

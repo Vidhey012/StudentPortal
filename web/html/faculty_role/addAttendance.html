@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<style>
+body::-webkit-scrollbar { display: none; }
+.a{width: 100%;  height: 100%;  overflow: auto;}
+body{overflow-y:scroll;}
+td{ background-color: Chartreuse; color:black;}
+td:hover{ background-color: ForestGreen; color:white;}
+th{ background-color: ForestGreen; color:white;}
+th:hover{ background-color: Chartreuse; color:black;}
+</style>
+</head>
+<body>
+
+ <div  id="regid" data-ng-controller="RegistrationController">
+ 
+		
+		<div class="container-fluid tab-pane a">
+		<br/><br/><br/><br/>
+	    <div class="row  text-center">
+		<div class="col-1"></div>
+		<div class="col-10">
+			<form><table class="table table-bordered mb-5" style="text-align:center;">
+				<tr>
+					<th>Date</th>
+					<th colspan="3">Student id</th>
+					<th>Attendance</th>		
+					<th>Quick Actions</th>
+				</tr>
+				<tr>
+					<td> <input type="date"  class="form-control"  data-ng-model="data.object.date" required/> </td>
+					<td> 
+					<input type="text" data-ng-model="data.object.stu_pin2" style="display:none;">
+                     <select class="form-control" data-ng-model="data.object.stu_pin1" data-ng-change="getStu_Pin3(data.object);"  required>			
+					   <option data-ng-repeat="x in studentdetails1" data-ng-value="{{x.stu_pin1}}">{{x.stu_pin1}}</option>
+			         </select>
+                    </td>
+					<td> <input type="text"  class="form-control" id="bc" disabled></td>
+					<td> 
+                     <select class="form-control" data-ng-model="data.object.stu_pin3" required>			
+					   <option data-ng-repeat="x in stupin3s" data-ng-value="{{x.stu_pin3}}">{{x.stu_pin3}}</option>
+			         </select>
+                    </td>
+               	    <td> 
+               	     <select class="form-control"  data-ng-model="data.object.attendance" required>
+                           <option data-ng-value="Present">Present </option>
+                            <option data-ng-value="Absent">Absent </option>
+                     </select>
+                    </td>
+					<td style="display:none;"><input type="text"  class="form-control" data-ng-model="data.object.facultyid"></td>
+					<td>
+					<button type="button" class="btn btn-primary btn-md" data-ng-click="insertStudentAttendance(data.object);">
+					<span class="glyphicon glyphicon-pencil "> ADD </span>
+				     </button>
+				    </td>
+				</tr>
+				<tr>
+				<td colspan="2">
+                <input type="date"  class="form-control bg-warning"  data-ng-model="select.date.sdate" required/>
+                <input type="text"  class="form-control"  data-ng-model="select.date.facultyid" style="display:none;"/>
+                </td>
+                <td colspan="2">
+                <input type="date"  class="form-control bg-warning"  data-ng-model="select.date.edate" required/>
+                </td>
+                <td colspan="2">
+                <input type="button" value="Get Attendance" class="btn btn-warning btn-md" class="form-control"  data-ng-click="viewStudentAttendance(select.date);"/>
+                </td>
+				</tr>
+				<tr data-ng-repeat="stuattendance in studentAttendance">
+					<td> <input type="date"  class="form-control"  data-ng-model="stuattendance.date" data-ng-value="stuattendance.date" required disabled> </td>
+					<td> 
+                     <select class="form-control" data-ng-model="stuattendance.stu_pin1" data-ng-value="stuattendance.stu_pin1" required disabled>			
+					   <option data-ng-repeat="x in studentdetails1" data-ng-value="{{x.stu_pin1}}">{{x.stu_pin1}}</option>
+			         </select>
+                    </td>
+					<td> <input type="text"  class="form-control"  data-ng-model="stuattendance.stu_pin2" data-ng-vaue="stuattendance.stu_pin2" disabled></td>
+					<td> 
+                     <select class="form-control" data-ng-model="stuattendance.stu_pin3" data-ng-value="stuattendance.stu_pin3" required disabled>			
+					   <option data-ng-repeat="y in studentdetails2" data-ng-value="{{y.stu_pin3}}">{{y.stu_pin3}}</option>
+			         </select>
+                    </td>
+               	    <td>  
+               	    <select class="form-control"  data-ng-model="stuattendance.attendance" data-ng-value="stuattendance.attendance" required>
+                           <option data-ng-value="Present" data-ng-selected="stuattendance.attendance=='Present'">Present </option>
+                            <option data-ng-value="Absent" data-ng-selected="stuattendance.attendance=='Absent'">Absent </option>
+                    </select>
+                    </td>
+					<td style="display:none;"><input type="text"  class="form-control" data-ng-model="stuattendance.facultyid"></td>
+					<td>
+					<button type="button" data-ng-click="updateStudentAttendance(stuattendance);" class="btn btn-success btn-md">
+							<span class="glyphicon glyphicon-pencil">Modify</span>
+					</button>
+					<button type="button"  data-ng-click="removeStudentAttendance(stuattendance);" class="btn btn-danger btn-md">
+							<span class="glyphicon glyphicon-pencil">Delete</span>
+					</button>
+				    </td>
+				</tr>
+				</table></form>
+			</div>
+			<div class="col-1"></div>
+			</div>
+		</div>
+		
+
+		
+ </div>
+ 
+	<script>
+		jQuery(document).ready(function() {
+			var currentPage='d';
+			 $('[id*=bc]').val(localStorage.getItem("branchcode"));
+			localStorage.setItem("currentPage",currentPage);
+			angular.bootstrap(jQuery("#regid"), [ 'RegistrationModule' ]);
+			
+		});
+		
+	</script>
+
+</body>
+</html>

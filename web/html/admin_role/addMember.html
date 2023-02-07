@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<style>
+body::-webkit-scrollbar { display: none; }
+.a{width: 100%;  height: 100%;  overflow: auto;}
+td{ background-color: DeepSkyBlue; color:black;}
+td:hover{ background-color: DodgerBlue; color:white;}
+th{ background-color: DodgerBlue; color:white;}
+th:hover{ background-color: DeepSkyBlue; color:black;}
+</style>
+</head>
+<body>
+
+ <div  id="regid" data-ng-controller="RegistrationController">
+ 
+		
+		<div class="container-fluid tab-pane a">
+		<br/><br/><br/><br/>
+	    <div class="row  text-center">
+		<div class="col-2"></div>
+		<div class="col-8">
+			<form><table class="table table-bordered" style="text-align:center;">
+				<tr>
+					<th>User Name</th>
+					<th>Password</th>
+					<th>Email</th>
+					<th>Designation</th>
+					<th>Branch Code</th>  
+					<th>Quick Actions</th>
+				</tr>
+				<tr>
+				<td><input type="text"  class="form-control" data-ng-model="data.object.username" pattern="[a-zA-Z0-9]{3,15}" required></td>
+				<td><input type="password"  class="form-control" data-ng-model="data.object.password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  required></td>
+				<td><input type="text"  class="form-control" data-ng-model="data.object.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required></td>
+				<td>
+				<select class="form-control"  data-ng-model="data.object.role" required>
+                   <option data-ng-value="Principal">Principal</option>
+                   <option data-ng-value="HOD">HOD</option>
+                   <option data-ng-value="Faculty">Faculty</option>
+                </select>
+				</td>
+				<td>
+				<select class="form-control" data-ng-model="data.object.branchcode"  data-ng-disabled="data.object.role=='Principal'">			
+					   <option data-ng-repeat="b in branchdetails" data-ng-value="{{b.branchcode}}">{{b.branchcode}}</option>
+			    </select>
+				</td>
+				 <td  style="display:none;"><input type="text"  class="form-control" data-ng-model="data.object.oldpassword"></td>
+				<td class="text-center">
+				<button type="submit" class="btn btn-primary btn-md" data-ng-click="insertDetails(data.object);">
+					<span class="glyphicon glyphicon-pencil "> ADD </span>
+				</button>
+				</td>
+				</tr>
+				<tr data-ng-repeat="userdata in userdetails">
+					<td><input type="text"  class="form-control" data-ng-model="userdata.username"  pattern="[a-zA-Z0-9]{3,15}" data-ng-value="userdata.username" disabled></td>
+					<td><input type="password"  class="form-control" data-ng-model="userdata.password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" data-ng-value="userdata.password" disabled></td>
+				    <td><input type="text"  class="form-control" data-ng-model="userdata.email" data-ng-value="userdata.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" data-ng-disabled="true"></td>
+					<td>
+					<select class="form-control"  data-ng-model="userdata.role"  data-ng-value="userdata.role" data-ng-disabled="userdata.status=='Terminated'" required>
+                	   <option data-ng-value="Principal">Principal</option>
+                	   <option data-ng-value="HOD">HOD</option>
+                	   <option data-ng-value="Faculty">Faculty</option>
+               	    </select>
+				    </td>
+				    <td>
+				      <select class="form-control" data-ng-model="userdata.branchcode"  data-ng-value="userdata.branchcode" data-ng-disabled="(userdata.role=='Principal')||(userdata.status=='Terminated')">			
+					   <option data-ng-repeat="b in branchdetails" data-ng-value="{{b.branchcode}}">{{b.branchcode}}</option>
+			          </select>
+				    </td>
+					<td  style="display:none;"><input type="text"  class="form-control" data-ng-model="userdata.oldbranchcode" data-ng-value="userdata.branchcode" data-ng-disabled="userdata.status=='Terminated'"></td>
+					<td  style="display:none;"><input type="text"  class="form-control" data-ng-model="userdata.oldpassword"></td>
+					<td>
+					    <button type="submit" data-ng-click="updateDetails(userdata);" class="btn btn-success btn-md" data-ng-hide="userdata.status=='Terminated'">
+							<span class="glyphicon glyphicon-pencil">Modify</span>
+						</button>
+						<button type="button"  data-ng-click="removeDetails(userdata);" class="btn btn-danger btn-md" data-ng-hide="userdata.status=='Terminated'">
+							<span class="glyphicon glyphicon-pencil">Delete</span>
+						</button>
+						<button type="button" class="btn btn-warning btn-md " data-ng-hide="userdata.status!='Terminated'" data-ng-disabled="userdata.status=='Terminated'">
+						<span class="text-danger">TERMINATED</span>
+						</button>
+					</td>
+				</tr>
+			</table></form>
+			</div>
+			<div class="col-2"></div>
+			</div>
+		</div>
+		
+
+		
+ </div>
+ 
+	<script>
+		jQuery(document).ready(function() {
+			
+			angular.bootstrap(jQuery("#regid"), [ 'RegistrationModule' ]);
+			var currentPage='c';
+			localStorage.setItem("currentPage",currentPage);
+			
+			
+		});
+		
+	</script>
+
+</body>
+</html>

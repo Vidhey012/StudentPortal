@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<style>
+body::-webkit-scrollbar { display: none; }
+.a{width: 100%;  height: 100%;  overflow: auto;}
+td{ background-color: DeepSkyBlue; color:black;}
+td:hover{ background-color: DodgerBlue; color:white;}
+th{ background-color: DodgerBlue; color:white;}
+th:hover{ background-color: DeepSkyBlue; color:black;}
+</style>
+</head>
+<body>
+
+ <div  id="regid" data-ng-controller="RegistrationController">
+ 
+		
+		<div class="container-fluid tab-pane a">
+		<br/><br/><br/><br/>
+	    <div class="row  text-center">
+		<div class="col-2"></div>
+		<div class="col-8">
+			<form><table class="table table-bordered" style="text-align:center;">
+				<tr>
+					<th>Detail Name</th>
+					<th>Detail Value</th>
+					<th>Quick Actions</th>
+				</tr>
+				<tr>
+				<td><input type="text"  class="form-control" data-ng-model="data.object.detailname" required></td>
+				<td><input type="text"  class="form-control" data-ng-model="data.object.detailvalue" required></td>
+				<td class="text-center">
+				<button type="submit" class="btn btn-primary btn-md" data-ng-click="insertContact(data.object);">
+					<span class="glyphicon glyphicon-pencil "> ADD </span>
+				</button>
+				</td>
+				</tr>
+				<tr data-ng-repeat="ddata in contactdetails">
+					<td><input type="text"  class="form-control" data-ng-model="ddata.detailname" data-ng-value="ddata.detailname" required></td>
+					<td><input type="text"  class="form-control" data-ng-model="ddata.detailvalue" data-ng-value="ddata.detailvalue" required></td>
+					<td style="display:none;"><input type="text"  class="form-control" data-ng-model="ddata.detailid" data-ng-value="ddata.detailid"></td>
+				    <td>
+					    <button type="submit" data-ng-click="updateContact(ddata);" class="btn btn-success btn-md">
+							<span class="glyphicon glyphicon-pencil">Modify</span>
+						</button>
+						<button type="button"  data-ng-click="removeContact(ddata);" class="btn btn-danger btn-md">
+							<span class="glyphicon glyphicon-pencil">Delete</span>
+						</button>
+					</td>
+				</tr>
+		    <tr>
+			<td colspan="2"><input type="text"  class="form-control" placeholder="Paste the link of your map..." data-ng-model="mapdetails.maplink" pattern="https?://.+" value="mapdetails.maplink" required></td>
+			<td>
+			<button type="submit" data-ng-click="updateMap(mapdetails.maplink);" class="btn btn-primary btn-md">
+							<span class="glyphicon glyphicon-pencil">Modify Map</span>
+			</button>
+			</td>
+			</tr>
+			</table></form>
+			</div>
+			<div class="col-2"></div>
+			</div>
+		
+		</div>
+		
+
+		
+ </div>
+ 
+	<script>
+		jQuery(document).ready(function() {
+			
+			angular.bootstrap(jQuery("#regid"), [ 'RegistrationModule' ]);
+			var currentPage='l';
+			localStorage.setItem("currentPage",currentPage);
+			
+			
+		});
+		
+	</script>
+
+</body>
+</html>

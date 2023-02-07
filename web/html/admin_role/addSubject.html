@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<style>
+body::-webkit-scrollbar { display: none; }
+.a{width: 100%;  height: 100%;  overflow: auto;}
+td{ background-color: DeepSkyBlue; color:black;}
+td:hover{ background-color: DodgerBlue; color:white;}
+th{ background-color: DodgerBlue; color:white;}
+th:hover{ background-color: DeepSkyBlue; color:black;}
+</style>
+</head>
+<body>
+
+ <div  id="regid" data-ng-controller="RegistrationController">
+ 
+		
+		<div class="container-fluid tab-pane a">
+		<br/><br/><br/><br/>
+	    <div class="row  text-center">
+		<div class="col-2"></div>
+		<div class="col-8">
+			<form><table class="table table-bordered" style="text-align:center;">
+				<tr>
+					<th>Subject Code</th>
+					<th>Semester Code</th>
+					<th>Quick Actions</th>
+				</tr>
+				<tr>
+				<td><input type="text"  class="form-control" data-ng-model="data.object.subject" required></td>
+				<td>
+				<select class="form-control" data-ng-model="data.object.sem" required>
+			           <option value="" selected disabled>Select Semester</option>			
+					   <option data-ng-repeat="x in semdetails" data-ng-value="{{x.sem}}">{{x.sem}}</option>
+			    </select>
+				</td>
+				<td class="text-center">
+				<button type="submit" class="btn btn-primary btn-md" data-ng-click="insertSubject(data.object);">
+					<span class="glyphicon glyphicon-pencil "> ADD </span>
+				</button>
+				</td>
+				</tr>
+				<tr data-ng-repeat="semdata in semisterdetails">
+					<td><input type="text"  class="form-control" data-ng-model="semdata.subject" data-ng-value="semdata.subject"  required></td>
+					<td>
+				      <select class="form-control" data-ng-model="semdata.sem" data-ng-value="semdata.sem" required>
+					   <option data-ng-repeat="x in semdetails" data-ng-value="{{x.sem}}">{{x.sem}}</option>
+			          </select>
+				    </td>
+					<td style="display:none;"><input type="text"  class="form-control" data-ng-model="semdata.subjectid" data-ng-value="semdata.subjectid"></td>
+				    <td>
+					    <button type="submit" data-ng-click="updateSubject(semdata);" class="btn btn-success btn-md">
+							<span class="glyphicon glyphicon-pencil">Modify</span>
+						</button>
+						<button type="button"  data-ng-click="removeSubject(semdata);" class="btn btn-danger btn-md">
+							<span class="glyphicon glyphicon-pencil">Delete</span>
+						</button>
+					</td>
+				</tr>
+			</table></form>
+			</div>
+			<div class="col-2"></div>
+			</div>
+		</div>
+		
+
+		
+ </div>
+ 
+	<script>
+		jQuery(document).ready(function() {
+			
+			angular.bootstrap(jQuery("#regid"), [ 'RegistrationModule' ]);
+			var currentPage='e';
+			localStorage.setItem("currentPage",currentPage);
+			
+			
+		});
+		
+	</script>
+
+</body>
+</html>
